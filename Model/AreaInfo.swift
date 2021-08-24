@@ -1,6 +1,6 @@
 //
 //  AreaInfo.swift
-//  Cooler
+//  FoodSafety
 //
 //  Created by S Yi on 8/22/21.
 //
