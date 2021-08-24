@@ -35,6 +35,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             tabBarVC.tabBar.items?[1].image = UIImage.init(systemName: "exclamationmark.triangle")
             tabBarVC.tabBar.tintColor = UIColor.systemRed
             tabBarVC.tabBar.barTintColor = UIColor.white
+            tabBarVC.selectedIndex = 1
             window.rootViewController = tabBarVC
             self.window = window
             window.makeKeyAndVisible()

@@ -42,6 +42,9 @@ class ExpandTableViewCell: UITableViewCell, UITextFieldDelegate {
         commentButton.addAction(UIAction.init(handler: {(action) in
             if let area = self.area {
                 area.isCommenting = !area.isCommenting
+                if (area.isCommenting == false && self.inputTextField.isFirstResponder) {
+                    self.inputTextField.resignFirstResponder()
+                }
                 self.delegate?.expand(self.tag)
             }
         }), for: UIControl.Event.touchUpInside)
@@ -109,16 +112,27 @@ class ExpandTableViewCell: UITableViewCell, UITextFieldDelegate {
         NSLayoutConstraint(item: inputTextField, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 37.0).isActive = true
     }
     
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.text = ""
+    }
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
         if let text = textField.text {
-            area?.comment = text
-            area?.commentDate = Date.init(timeIntervalSinceNow: 0)
+            if let thisArea = area {
+                thisArea.comment = text
+                let date = Date.init(timeIntervalSinceNow: 0)
+                thisArea.commentDate = date
+                commentLabel.isHidden = false
+                let formatter = DateFormatter.init()
+                formatter.dateFormat = "MM/dd/yy"
+                let dateString = formatter.string(from: date)
+                commentLabel.text = "\(thisArea.commentUser!) on \(dateString): \(text)"
+            }
         }
-        area?.isCommenting = false
-        update()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        area?.isCommenting = false
         textField.resignFirstResponder()
         return true
     }
@@ -139,31 +153,26 @@ class ExpandTableViewCell: UITableViewCell, UITextFieldDelegate {
         case.none:
             segmentedCtrl.isSelected = false
         }
-        update()
-    }
-    
-    func update() {
-        if let area = self.area {
-            if let comment = area.comment {
-                commentLabel.isHidden = area.isCommenting ? true : false
-                if let date = area.commentDate {
-                    let formatter = DateFormatter.init()
-                    formatter.dateStyle = DateFormatter.Style.short
-                    let dateString = formatter.string(from: date)
-                    commentLabel.text = "\(area.commentUser!) on \(dateString): \(comment)"
-                }
+        if let comment = area.comment {
+            commentLabel.isHidden = area.isCommenting ? true : false
+            if let date = area.commentDate {
+                let formatter = DateFormatter.init()
+                formatter.dateFormat = "MM/dd/yy"
+                let dateString = formatter.string(from: date)
+                commentLabel.text = "\(area.commentUser!) on \(dateString): \(comment)"
             }
-            else {
-                commentLabel.isHidden = false
-            }
-            if (area.isCommenting) {
-                commentButton.setImage(UIImage.init(systemName:"xmark"), for: UIControl.State.normal)
-                inputTextField.isHidden = false
-            }
-            else {
-                commentButton.setImage(UIImage.init(systemName:"plus.bubble"), for: UIControl.State.normal)
-                inputTextField.isHidden = true
-            }
+        }
+        else {
+            commentLabel.isHidden = false
+        }
+        if (area.isCommenting) {
+            commentButton.setImage(UIImage.init(systemName:"xmark"), for: UIControl.State.normal)
+            inputTextField.isHidden = false
+            inputTextField.becomeFirstResponder()
+        }
+        else {
+            commentButton.setImage(UIImage.init(systemName:"plus.bubble"), for: UIControl.State.normal)
+            inputTextField.isHidden = true
         }
     }
 }

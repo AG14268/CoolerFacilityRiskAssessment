@@ -44,6 +44,9 @@ class RiskAssessmentVC: UIViewController, UITableViewDelegate, UITableViewDataSo
         sbmtButton.setTitleColor(UIColor.systemRed, for: UIControl.State.normal)
         sbmtButton.backgroundColor = UIColor.white
         sbmtButton.layer.borderWidth = 0.25
+        sbmtButton.addAction(UIAction.init(handler: {(action) in
+            self.sbmtButtonPressed()
+        }), for: UIControl.Event.touchUpInside)
         sbmtButton.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(sbmtButton)
         // Setup the view's constraints
@@ -108,7 +111,7 @@ class RiskAssessmentVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseID", for: indexPath) as! ExpandTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier:"reuseID", for: indexPath) as! ExpandTableViewCell
         cell.configure(areaList[indexPath.row])
         cell.delegate = self
         cell.tag = indexPath.row
@@ -121,6 +124,33 @@ class RiskAssessmentVC: UIViewController, UITableViewDelegate, UITableViewDataSo
         return cell
     }
 
+    func sbmtButtonPressed() {
+        var index = 0
+        var selectionsDone = true
+        for area in areaList {
+            if area.status == .none {
+                selectionsDone = false
+            }
+            if area.isCommenting == true {
+                let cell = tableView.cellForRow(at: IndexPath.init(row: index, section: 0)) as? ExpandTableViewCell
+                if let text = cell?.inputTextField.text {
+                    area.comment = text
+                    area.commentDate = Date.init(timeIntervalSinceNow: 0)
+                }
+                cell?.inputTextField.resignFirstResponder()
+                area.isCommenting = false
+                tableView.reloadRows(at: [IndexPath.init(row: index, section: 0)], with: UITableView.RowAnimation.none)
+            }
+            index += 1
+        }
+        if selectionsDone == false {
+            print("Selections not finished")
+        }
+        else {
+            print("Continue with submit")
+        }
+    }
+    
     func segmentSelected() {
         let header = tableView.headerView(forSection: 0)
         var selectionsDone = true
