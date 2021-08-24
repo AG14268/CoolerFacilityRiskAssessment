@@ -102,11 +102,11 @@ class ExpandTableViewCell: UITableViewCell, UITextFieldDelegate {
         NSLayoutConstraint(item: segmentedCtrl, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 33.0).isActive = true
         NSLayoutConstraint(item: segmentedCtrl, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 330.0).isActive = true
         NSLayoutConstraint(item: segmentedCtrl, attribute: .trailing, relatedBy: .equal, toItem: self.contentView, attribute: .trailingMargin, multiplier: 1.0, constant: 10.0).isActive = true
-        NSLayoutConstraint(item: commentLabel, attribute: .top, relatedBy: .equal, toItem: titleLabel, attribute: .bottomMargin, multiplier: 1.0, constant: 18.0).isActive = true
+        NSLayoutConstraint(item: commentLabel, attribute: .top, relatedBy: .equal, toItem: titleLabel, attribute: .bottomMargin, multiplier: 1.0, constant: 10.0).isActive = true
         NSLayoutConstraint(item: commentLabel, attribute: .leading, relatedBy: .equal, toItem: self.contentView, attribute: .leadingMargin, multiplier: 1.0, constant: 3.0).isActive = true
         NSLayoutConstraint(item: commentLabel, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 50.0).isActive = true
         NSLayoutConstraint(item: commentLabel, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 350.0).isActive = true
-        NSLayoutConstraint(item: inputTextField, attribute: .top, relatedBy: .equal, toItem: titleLabel, attribute: .bottomMargin, multiplier: 1.0, constant: 18.0).isActive = true
+        NSLayoutConstraint(item: inputTextField, attribute: .top, relatedBy: .equal, toItem: titleLabel, attribute: .bottomMargin, multiplier: 1.0, constant: 10.0).isActive = true
         NSLayoutConstraint(item: inputTextField, attribute: .leading, relatedBy: .equal, toItem: self.contentView, attribute: .leadingMargin, multiplier: 1.0, constant: 5.0).isActive = true
         NSLayoutConstraint(item: inputTextField, attribute: .trailing, relatedBy: .equal, toItem: self.contentView, attribute: .trailingMargin, multiplier: 1.0, constant: 5.0).isActive = true
         NSLayoutConstraint(item: inputTextField, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 37.0).isActive = true
@@ -136,6 +136,7 @@ class ExpandTableViewCell: UITableViewCell, UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         area?.isCommenting = false
         textField.resignFirstResponder()
+        self.delegate?.expand(self.tag)
         return true
     }
     

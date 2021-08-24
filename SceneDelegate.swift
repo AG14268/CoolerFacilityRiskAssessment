@@ -25,7 +25,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             nav1.title = "Dashboard"
             let documentsVC = DocumentsVC.init()
             let nav2 = UINavigationController.init(rootViewController: documentsVC)
-            nav2.title = "Food Safety"
             nav2.navigationBar.backgroundColor = UIColor.white
             nav2.navigationBar.barTintColor = UIColor.white
             nav2.navigationBar.tintColor = UIColor.systemRed

@@ -52,20 +52,20 @@ class RiskAssessmentVC: UIViewController, UITableViewDelegate, UITableViewDataSo
         // Setup the view's constraints
         NSLayoutConstraint(item: tableView, attribute: .top, relatedBy: .equal, toItem: tblHeader, attribute: .bottomMargin, multiplier: 1.0, constant: 0.0).isActive = true
         NSLayoutConstraint(item: tableView, attribute: .bottom, relatedBy: .equal, toItem: svButton, attribute: .topMargin, multiplier: 1.0, constant: 0.0).isActive = true
-        NSLayoutConstraint(item: tableView, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .leadingMargin, multiplier: 1.0, constant: 0.0).isActive = true
-        NSLayoutConstraint(item: tableView, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailingMargin, multiplier: 1.0, constant: 0.0).isActive = true
+        NSLayoutConstraint(item: tableView, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .leading, multiplier: 1.0, constant: 0.0).isActive = true
+        NSLayoutConstraint(item: tableView, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1.0, constant: 0.0).isActive = true
         NSLayoutConstraint(item: tblHeader, attribute: .top, relatedBy: .equal, toItem: self.view, attribute: .topMargin, multiplier: 1.0, constant: 0.0).isActive = true
         NSLayoutConstraint(item: tblHeader, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 50.0).isActive = true
-        NSLayoutConstraint(item: tblHeader, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .leadingMargin, multiplier: 1.0, constant: 0.0).isActive = true
-        NSLayoutConstraint(item: tblHeader, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailingMargin, multiplier: 1.0, constant: 0.0).isActive = true
+        NSLayoutConstraint(item: tblHeader, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .leading, multiplier: 1.0, constant: 0.0).isActive = true
+        NSLayoutConstraint(item: tblHeader, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1.0, constant: 0.0).isActive = true
         NSLayoutConstraint(item: svButton, attribute: .bottom, relatedBy: .equal, toItem: self.view, attribute: .bottomMargin, multiplier: 1.0, constant: 0.0).isActive = true
         NSLayoutConstraint(item: svButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 55.0).isActive = true
-        NSLayoutConstraint(item: svButton, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .leadingMargin, multiplier: 1.0, constant: 0.0).isActive = true
-        NSLayoutConstraint(item: svButton, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailingMargin, multiplier: 0.5, constant: 0).isActive = true
+        NSLayoutConstraint(item: svButton, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .leading, multiplier: 1.0, constant: 0.0).isActive = true
+        NSLayoutConstraint(item: svButton, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 0.5, constant: 0).isActive = true
         NSLayoutConstraint(item: sbmtButton, attribute: .bottom, relatedBy: .equal, toItem: self.view, attribute: .bottomMargin, multiplier: 1.0, constant: 0.0).isActive = true
         NSLayoutConstraint(item: sbmtButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 55.0).isActive = true
-        NSLayoutConstraint(item: sbmtButton, attribute: .leading, relatedBy: .equal, toItem: svButton, attribute: .trailingMargin, multiplier: 1.0, constant: 0.0).isActive = true
-        NSLayoutConstraint(item: sbmtButton, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailingMargin, multiplier: 1.0, constant: 0.0).isActive = true
+        NSLayoutConstraint(item: sbmtButton, attribute: .leading, relatedBy: .equal, toItem: svButton, attribute: .trailing, multiplier: 1.0, constant: 0.0).isActive = true
+        NSLayoutConstraint(item: sbmtButton, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1.0, constant: 0.0).isActive = true
     }
         
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -100,11 +100,11 @@ class RiskAssessmentVC: UIViewController, UITableViewDelegate, UITableViewDataSo
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let area = self.areaList[indexPath.row]
         if (area.isCommenting) {
-            return 115.0
+            return 105.0
         }
         if let comment = area.comment {
             if comment.count > 0 {
-                return 115.0
+                return 105.0
             }
         }
         return 62.0

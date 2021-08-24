@@ -25,7 +25,7 @@ class AreaInfo: NSObject {
     override init() {
         self.title = nil
         self.comment = nil
-        self.commentUser = "Eric"
+        self.commentUser = "Eric Engman"
         self.commentDate = nil
         self.status = .none
         self.isCommenting = false

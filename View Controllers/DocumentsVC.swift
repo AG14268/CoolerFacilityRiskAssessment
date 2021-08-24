@@ -12,6 +12,7 @@ class DocumentsVC: UIViewController {
     override func viewWillAppear(_ animated:Bool) {
         super.viewWillAppear(animated)
         self.title = "Documents"
+        self.navigationController?.title = "Food Safety"
         let area1 = AreaInfo.init()
         area1.title = "Surrounding Areas / Adjacent Activities"
         let area2 = AreaInfo.init()
