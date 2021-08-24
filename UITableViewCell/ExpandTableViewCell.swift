@@ -116,17 +116,19 @@ class ExpandTableViewCell: UITableViewCell, UITextFieldDelegate {
         textField.text = ""
     }
     
+    func updateCommentLabel(_ text:String, user:String, date:Date) {
+        let formatter = DateFormatter.init()
+        formatter.dateFormat = "MM/dd/yy"
+        commentLabel.text = "\(user) on \(formatter.string(from: date)): \(text)"
+    }
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
         if let text = textField.text {
             if let thisArea = area {
-                thisArea.comment = text
-                let date = Date.init(timeIntervalSinceNow: 0)
-                thisArea.commentDate = date
                 commentLabel.isHidden = false
-                let formatter = DateFormatter.init()
-                formatter.dateFormat = "MM/dd/yy"
-                let dateString = formatter.string(from: date)
-                commentLabel.text = "\(thisArea.commentUser!) on \(dateString): \(text)"
+                thisArea.comment = text
+                thisArea.commentDate = Date.init(timeIntervalSinceNow: 0)
+                updateCommentLabel(text, user: thisArea.commentUser!, date: thisArea.commentDate!)
             }
         }
     }
@@ -155,12 +157,7 @@ class ExpandTableViewCell: UITableViewCell, UITextFieldDelegate {
         }
         if let comment = area.comment {
             commentLabel.isHidden = area.isCommenting ? true : false
-            if let date = area.commentDate {
-                let formatter = DateFormatter.init()
-                formatter.dateFormat = "MM/dd/yy"
-                let dateString = formatter.string(from: date)
-                commentLabel.text = "\(area.commentUser!) on \(dateString): \(comment)"
-            }
+            updateCommentLabel(comment, user: area.commentUser!, date: area.commentDate!)
         }
         else {
             commentLabel.isHidden = false
