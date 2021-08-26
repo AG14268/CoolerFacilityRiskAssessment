@@ -18,13 +18,24 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
 
-        // Create the SwiftUI view that provides the window contents.
-        let contentView = ContentView()
-
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            window.rootViewController = UIHostingController(rootView: contentView)
+            let nav1 = UINavigationController.init()
+            nav1.title = "Dashboard"
+            let documentsVC = DocumentsVC.init()
+            let nav2 = UINavigationController.init(rootViewController: documentsVC)
+            nav2.navigationBar.backgroundColor = UIColor.white
+            nav2.navigationBar.barTintColor = UIColor.white
+            nav2.navigationBar.tintColor = UIColor.systemRed
+            let tabBarVC = UITabBarController.init()
+            tabBarVC.setViewControllers([nav1, nav2], animated: false)
+            tabBarVC.tabBar.items?[0].image = UIImage.init(systemName: "square.stack.3d.up")
+            tabBarVC.tabBar.items?[1].image = UIImage.init(systemName: "exclamationmark.triangle")
+            tabBarVC.tabBar.tintColor = UIColor.systemRed
+            tabBarVC.tabBar.barTintColor = UIColor.white
+            tabBarVC.selectedIndex = 1
+            window.rootViewController = tabBarVC
             self.window = window
             window.makeKeyAndVisible()
         }
